@@ -1,16 +1,73 @@
-import React from 'react'
+import { GrValidate } from "react-icons/gr";
+import StatusTag from "../StatusTag/StatusTag";
+import "./style.scss";
 
-const TableContent = () => {
-    return (
-        <table>
-            <tr>
-                <th></th>                
+type Items = {
+  document?: string;
+  status: string;
+  id?: number;
+  sending?: string;
+  logo?: string;
+  destiny?: string;
+  date?: string;
+  action?: boolean;
+};
+type Document = {
+  labels: string[];
+  items: Items[];
+};
+type TableProps = {
+  title: string;
+  data: Document;
+};
+const TableContent = ({ title, data }: TableProps) => {
+  return (
+    <div className="table-container">
+      <h3 className="title">{title}</h3>
+      <table className="table-content">
+        <thead>
+          <tr>
+            {data?.labels.map((label, index) => (
+              <th key={index}>{label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {data?.items.map((item) => (
+            <tr key={item.status}>
+              {item.document ? (
+                <>
+                  <td>{item.document}</td>
+                  <td>
+                    <StatusTag item={item.status} />
+                  </td>
+                </>
+                ) : (
+                <>
+                  <td>{item.sending}</td>
+                  <td>{item.destiny}</td>
+                  <td>{item.date}</td>
+                  <td>
+                    <StatusTag item={item.status} />
+                  </td>
+                  <td>
+                    <div
+                      className="action"
+                      style={{
+                        backgroundColor: item.action ? "green" : "gray",
+                      }}
+                    >
+                      <GrValidate />
+                    </div>
+                  </td>
+                </>
+              )}
             </tr>
-            <tr>
-                <td></td>
-            </tr>
-        </table>
-    )
-}
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
 
-export default TableContent
+export default TableContent;

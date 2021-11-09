@@ -1,0 +1,48 @@
+.page-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    aside {
+        border-right: 1px solid #eee;
+        padding: 3rem 2rem;
+
+        ul {
+            margin-top: 1rem;
+
+            li {
+                padding: 1rem 0;
+
+                strong{
+                    color: rgb(105, 101, 101);
+                }
+                span {
+                    color: #aaa;
+                }
+            }
+        }
+    }
+    main {
+       display: flex;
+       flex-direction: column;
+       padding: 3rem 2rem;
+
+       .buttons {
+           display: flex;
+           justify-content: flex-end;
+           button {
+               background-color: orange;
+               border-radius: 40px;
+               padding: .5rem 1rem;
+               margin: 0 4px;
+               color: white;
+               font-weight: 400;
+               transition: filter 0.2s;
+               font-size: 1.1rem;
+               &:hover {
+                    filter: brightness(0.8);
+                }
+           }
+        }
+
+    }
+}
