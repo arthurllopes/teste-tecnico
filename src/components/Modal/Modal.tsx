@@ -28,15 +28,21 @@ type TransactionsState = {
 const Modal = ({ setModal }: ModalProps) => {
 
   const [transactions, setTransactions] = React.useState<TransactionsState[]>([]);
+  const [loading, setLoading] = React.useState(false)
   React.useEffect(() => {
-    api
-      .get("/transactions")
-      .then((response) => setTransactions(response.data.transactions));
+    setLoading(prevState => !prevState)
+    try {
+      api
+        .get("/transactions")
+        .then((response) => setTransactions(response.data.transactions));
+      setLoading(prevState => !prevState)
+    } catch {}
   }, []);
 
   function closeModal(event: MouseEvent) {
     if (event.target === event.currentTarget) {
       setModal(false);
+      console.log(transactions)
     }
   }
 
@@ -58,7 +64,7 @@ const Modal = ({ setModal }: ModalProps) => {
           </div>
         </header>
         <SearchComponent />
-        <TableContent title="" data={transactions} />
+        {loading? 'Carregando...' : <TableContent title="" data={transactions} />}
         <Pagination />
         <footer>
           <button>Agendar com outra instituição</button>
