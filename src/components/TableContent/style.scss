@@ -13,12 +13,12 @@
 
         th {
             color: blue;
-            text-align: left;
             line-height: 2rem;
             width: 80%;
-            padding: 0 20px;
+            padding: 0 10px;
             border-right: 1px solid #eee;
             white-space: nowrap;
+            text-align: left;
 
             &:last-child{
                 border-right: none;

@@ -4,8 +4,8 @@ import Modal from "../../components/Modal/Modal";
 import TableContent from "../../components/TableContent/TableContent";
 import "./style.scss";
 const Home = () => {
-  const [modal, setModal] = React.useState<boolean>(false);
-  const documents = {
+  const [modal, setModal] = React.useState(false);
+  const documents = [{
     labels: ["Documento", "Status"],
     items: [
       {
@@ -21,7 +21,7 @@ const Home = () => {
         status: "A Validar",
       },
     ],
-  };
+  }];
   return (
     <>
       <Header />

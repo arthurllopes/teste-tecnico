@@ -11,44 +11,28 @@ type ModalProps = {
   setModal: (modal: boolean) => void;
 };
 
+type Items = {
+  status: string;
+  id: number;
+  sending: string;
+  destiny: string;
+  date: string;
+  action: boolean;
+}
+
+type TransactionsState = {
+  labels: string[],
+  items: Items[],
+}
+
 const Modal = ({ setModal }: ModalProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [transactions, setTransactions] = React.useState();
+
+  const [transactions, setTransactions] = React.useState<TransactionsState[]>([]);
   React.useEffect(() => {
     api
       .get("/transactions")
       .then((response) => setTransactions(response.data.transactions));
   }, []);
-
-  const data = {
-    labels: ["Remetente", "Destinatário", "Data de Criação", "Status", "Ações"],
-    items: [
-      {
-        id: 1,
-        sending: "Nubank",
-        destiny: "Teddy Investimentos",
-        date: "2021-09-12",
-        status: "Atualizado",
-        action: false,
-      },
-      {
-        id: 2,
-        sending: "Nubank",
-        destiny: "Teddy Investimentos",
-        date: "2021-07-12",
-        status: "Inválido",
-        action: true,
-      },
-      {
-        id: 3,
-        sending: "Next",
-        destiny: "Teddy Investimentos",
-        date: "2021-02-12",
-        status: "Desatualizado",
-        action: true,
-      },
-    ],
-  };
 
   function closeModal(event: MouseEvent) {
     if (event.target === event.currentTarget) {
@@ -74,7 +58,7 @@ const Modal = ({ setModal }: ModalProps) => {
           </div>
         </header>
         <SearchComponent />
-        <TableContent title="" data={data} />
+        <TableContent title="" data={transactions} />
         <Pagination />
         <footer>
           <button>Agendar com outra instituição</button>

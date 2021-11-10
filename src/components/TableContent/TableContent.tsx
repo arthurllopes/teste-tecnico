@@ -7,7 +7,6 @@ type Items = {
   status: string;
   id?: number;
   sending?: string;
-  logo?: string;
   destiny?: string;
   date?: string;
   action?: boolean;
@@ -18,22 +17,22 @@ type Document = {
 };
 type TableProps = {
   title: string;
-  data: Document;
+  data: Document[];
 };
-const TableContent = ({ title, data }: TableProps) => {
+const TableContent = ({title, data}: TableProps) => {
   return (
     <div className="table-container">
       <h3 className="title">{title}</h3>
       <table className="table-content">
         <thead>
           <tr>
-            {data?.labels.map((label, index) => (
+            {data[0]?.labels.map((label, index) => (
               <th key={index}>{label}</th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {data?.items.map((item) => (
+          {data[0]?.items.map((item) => (
             <tr key={item.status}>
               {item.document ? (
                 <>
