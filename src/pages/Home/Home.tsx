@@ -2,32 +2,52 @@ import React from "react";
 import Header from "../../components/Header/Header";
 import Modal from "../../components/Modal/Modal";
 import TableContent from "../../components/TableContent/TableContent";
-import { api } from "../../services/api";
 import "./style.scss";
 
-type Document = {
-  document: string,
-  status: string,
-}
 
-type Documents = {
-  labels: string[],
-  items: Document[],
-}
 const Home = () => {
   const [modal, setModal] = React.useState(false);
-  const [documents, setDocuments] = React.useState<Documents[]>([])
-  const [loading, setLoading] = React.useState(false)
   
+  /*
+  type Document = {
+    document: string,
+    status: string,
+  }
+  type Documents = {
+    labels: string[],
+    items: Document[],
+  }
+  const [documents, setDocuments] = React.useState<Documents[]>([])
   React.useEffect(() => {
     setLoading(prevState => !prevState)
     try{
       api
-        .get("/documents")
-        .then((response) => setDocuments(response.data.documents));
+      .get("/documents")
+      .then((response) => setDocuments(response.data.documents));
       setLoading(prevState => !prevState)
     } catch{}
   }, []);
+  */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loading, setLoading] = React.useState(false)
+  
+  const documents = [{
+    labels: ["Documento", "Status"],
+    items: [
+        {
+            document: "Capa do IPTU",
+            status: "Validado",
+        },
+        {
+            document: "Dados pessoais",
+            status: "Pendente",
+        },
+        {
+            document: "Balancete 2020",
+            status: "A Validar",
+        },
+    ],
+  }]
 
   return (
     <>
@@ -71,7 +91,7 @@ const Home = () => {
               <button>?</button>
             </div>
           </div>
-          {loading? 'Carregando...' : <TableContent title="Documentos Solicitados" data={documents} />}
+          {loading ? 'Carregando...' : <TableContent title="Documentos Solicitados" data={documents} />}
         </main>
       </div>
       {modal && <Modal setModal={setModal} />}

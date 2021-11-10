@@ -5,30 +5,27 @@ import { FaDatabase } from "react-icons/fa";
 import "./style.scss";
 import SearchComponent from "../SearchComponent/SearchComponent";
 import Pagination from "../Pagination/Pagination";
-import { api } from "../../services/api";
 
 type ModalProps = {
   setModal: (modal: boolean) => void;
 };
 
-type Items = {
-  status: string;
-  id: number;
-  sending: string;
-  destiny: string;
-  date: string;
-  action: boolean;
-}
-
-type TransactionsState = {
-  labels: string[],
-  items: Items[],
-}
-
 const Modal = ({ setModal }: ModalProps) => {
-
+  /*
+  type Items = {
+    status: string;
+    id: number;
+    sending: string;
+    destiny: string;
+    date: string;
+    action: boolean;
+  }
+  
+  type TransactionsState = {
+    labels: string[],
+    items: Items[],
+  }
   const [transactions, setTransactions] = React.useState<TransactionsState[]>([]);
-  const [loading, setLoading] = React.useState(false)
   React.useEffect(() => {
     setLoading(prevState => !prevState)
     try {
@@ -38,13 +35,57 @@ const Modal = ({ setModal }: ModalProps) => {
       setLoading(prevState => !prevState)
     } catch {}
   }, []);
+*/
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [loading, setLoading] = React.useState(false);
 
   function closeModal(event: MouseEvent) {
     if (event.target === event.currentTarget) {
       setModal(false);
-      console.log(transactions)
     }
   }
+
+  const transactions = [
+    {
+      labels: [
+        "Remetente",
+        "Destinatário",
+        "Data de Criação",
+        "Status",
+        "Ações",
+      ],
+      items: [
+        {
+          id: 1,
+          sending: "Nubank",
+          logo: "purple",
+          destiny: "Teddy Investimentos",
+          date: "2021-07-12",
+          status: "Atualizado",
+          action: false,
+        },
+        {
+          id: 2,
+          sending: "Nubank",
+          logo: "purple",
+          destiny: "Teddy Investimentos",
+          date: "2021-07-12",
+          status: "Inválido",
+          action: true,
+        },
+        {
+          id: 3,
+          sending: "Next",
+          logo: "green",
+          destiny: "Teddy Investimentos",
+          date: "2021-07-12",
+          status: "Desatualizado",
+          action: true,
+        },
+      ],
+    },
+  ];
 
   return (
     <div className="modal-container" onClick={closeModal}>
@@ -64,7 +105,11 @@ const Modal = ({ setModal }: ModalProps) => {
           </div>
         </header>
         <SearchComponent />
-        {loading? 'Carregando...' : <TableContent title="" data={transactions} />}
+        {loading ? (
+          "Carregando..."
+        ) : (
+          <TableContent title="" data={transactions} />
+        )}
         <Pagination />
         <footer>
           <button>Agendar com outra instituição</button>
